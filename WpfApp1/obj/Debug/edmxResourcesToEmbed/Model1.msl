@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище uchetModelContainer" CdmEntityContainer="uchetEntities">
+    <EntitySetMapping Name="Equipment">
+      <EntityTypeMapping TypeName="uchetModel.Equipment">
+        <MappingFragment StoreEntitySet="Equipment">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Otchet">
+      <EntityTypeMapping TypeName="uchetModel.Otchet">
+        <MappingFragment StoreEntitySet="Otchet">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Materiali" ColumnName="Materiali" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Prichina_neispravnosti" ColumnName="Prichina_neispravnosti" />
+          <ScalarProperty Name="Data_create" ColumnName="Data_create" />
+          <ScalarProperty Name="ID_zajavki" ColumnName="ID_zajavki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="uchetModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="uchetModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Status1" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="uchetModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Familia" ColumnName="Familia" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="ID_role" ColumnName="ID_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zajavka">
+      <EntityTypeMapping TypeName="uchetModel.Zajavka">
+        <MappingFragment StoreEntitySet="Zajavka">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ispolnitel" ColumnName="ID_ispolnitel" />
+          <ScalarProperty Name="Tip_neispravnosti" ColumnName="Tip_neispravnosti" />
+          <ScalarProperty Name="Serijni_number" ColumnName="Serijni_number" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Priopitet" ColumnName="Priopitet" />
+          <ScalarProperty Name="Date_create" ColumnName="Date_create" />
+          <ScalarProperty Name="ID_status" ColumnName="ID_status" />
+          <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+          <ScalarProperty Name="ID_oborudovanie" ColumnName="ID_oborudovanie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

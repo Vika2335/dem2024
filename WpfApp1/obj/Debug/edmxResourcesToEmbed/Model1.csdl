@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="uchetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Equipment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zajavka" Relationship="Self.FK_Zajavka_Equipment" FromRole="Equipment" ToRole="Zajavka" />
+  </EntityType>
+  <EntityType Name="Otchet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Materiali" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Prichina_neispravnosti" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Data_create" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ID_zajavki" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Zajavka" Relationship="Self.FK_Otchet_Zajavka" FromRole="Otchet" ToRole="Zajavka" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zajavka" Relationship="Self.FK_Zajavka_Status" FromRole="Status" ToRole="Zajavka" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_role" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="Zajavka" Relationship="Self.FK_Zajavka_User" FromRole="User" ToRole="Zajavka" />
+    <NavigationProperty Name="Zajavka1" Relationship="Self.FK_Zajavka_User1" FromRole="User" ToRole="Zajavka" />
+  </EntityType>
+  <EntityType Name="Zajavka">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ispolnitel" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Tip_neispravnosti" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Serijni_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Priopitet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date_create" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ID_status" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ID_client" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ID_oborudovanie" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Equipment" Relationship="Self.FK_Zajavka_Equipment" FromRole="Zajavka" ToRole="Equipment" />
+    <NavigationProperty Name="Otchet" Relationship="Self.FK_Otchet_Zajavka" FromRole="Zajavka" ToRole="Otchet" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Zajavka_Status" FromRole="Zajavka" ToRole="Status" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Zajavka_User" FromRole="Zajavka" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Zajavka_User1" FromRole="Zajavka" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Zajavka_Equipment">
+    <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_oborudovanie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Otchet_Zajavka">
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="1" />
+    <End Role="Otchet" Type="Self.Otchet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zajavka">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Otchet">
+        <PropertyRef Name="ID_zajavki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ID_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_ispolnitel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="uchetEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+    <EntitySet Name="Otchet" EntityType="Self.Otchet" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <EntitySet Name="Zajavka" EntityType="Self.Zajavka" />
+    <AssociationSet Name="FK_Zajavka_Equipment" Association="Self.FK_Zajavka_Equipment">
+      <End Role="Equipment" EntitySet="Equipment" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Otchet_Zajavka" Association="Self.FK_Otchet_Zajavka">
+      <End Role="Zajavka" EntitySet="Zajavka" />
+      <End Role="Otchet" EntitySet="Otchet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_Status" Association="Self.FK_Zajavka_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_User" Association="Self.FK_Zajavka_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_User1" Association="Self.FK_Zajavka_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

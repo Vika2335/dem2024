@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище uchetModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Equipment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Otchet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Materiali" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="Prichina_neispravnosti" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Data_create" Type="date" Nullable="false" />
+    <Property Name="ID_zajavki" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_role" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zajavka">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ispolnitel" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Tip_neispravnosti" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Serijni_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Information" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Priopitet" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Date_create" Type="date" Nullable="false" />
+    <Property Name="ID_status" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ID_client" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ID_oborudovanie" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Otchet_Zajavka">
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="1" />
+    <End Role="Otchet" Type="Self.Otchet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zajavka">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Otchet">
+        <PropertyRef Name="ID_zajavki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ID_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_Equipment">
+    <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_oborudovanie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zajavka_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Zajavka" Type="Self.Zajavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zajavka">
+        <PropertyRef Name="ID_ispolnitel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище uchetModelContainer">
+    <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Otchet" EntityType="Self.Otchet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Zajavka" EntityType="Self.Zajavka" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Otchet_Zajavka" Association="Self.FK_Otchet_Zajavka">
+      <End Role="Zajavka" EntitySet="Zajavka" />
+      <End Role="Otchet" EntitySet="Otchet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_Equipment" Association="Self.FK_Zajavka_Equipment">
+      <End Role="Equipment" EntitySet="Equipment" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_Status" Association="Self.FK_Zajavka_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_User" Association="Self.FK_Zajavka_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zajavka_User1" Association="Self.FK_Zajavka_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Zajavka" EntitySet="Zajavka" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
